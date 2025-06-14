@@ -170,13 +170,17 @@ std::unique_ptr<TargetInfo> AllocateTarget(const llvm::Triple &Triple,
     case llvm::Triple::OpenBSD:
       return std::make_unique<OpenBSDTargetInfo<AArch64leTargetInfo>>(Triple,
                                                                       Opts);
+    case llvm::Triple::Minix:
+      return std::make_unique<MinixTargetInfo<AArch64leTargetInfo>>(Triple, Opts);
     case llvm::Triple::Win32:
       switch (Triple.getEnvironment()) {
       case llvm::Triple::GNU:
         return std::make_unique<MinGWARM64TargetInfo>(Triple, Opts);
+
       case llvm::Triple::MSVC:
       default: // Assume MSVC for unknown environments
         return std::make_unique<MicrosoftARM64TargetInfo>(Triple, Opts);
+
       }
     default:
       return std::make_unique<AArch64leTargetInfo>(Triple, Opts);
@@ -196,6 +200,8 @@ std::unique_ptr<TargetInfo> AllocateTarget(const llvm::Triple &Triple,
     case llvm::Triple::NetBSD:
       return std::make_unique<NetBSDTargetInfo<AArch64beTargetInfo>>(Triple,
                                                                      Opts);
+    case llvm::Triple::Minix:
+      return std::make_unique<MinixTargetInfo<AArch64beTargetInfo>>(Triple, Opts);
     default:
       return std::make_unique<AArch64beTargetInfo>(Triple, Opts);
     }
@@ -227,6 +233,8 @@ std::unique_ptr<TargetInfo> AllocateTarget(const llvm::Triple &Triple,
       return std::make_unique<HaikuTargetInfo<ARMleTargetInfo>>(Triple, Opts);
     case llvm::Triple::NaCl:
       return std::make_unique<NaClTargetInfo<ARMleTargetInfo>>(Triple, Opts);
+    case llvm::Triple::Minix:
+      return std::make_unique<MinixTargetInfo<ARMleTargetInfo>>(Triple, Opts);
     case llvm::Triple::Win32:
       switch (Triple.getEnvironment()) {
       case llvm::Triple::Cygnus:
@@ -235,6 +243,7 @@ std::unique_ptr<TargetInfo> AllocateTarget(const llvm::Triple &Triple,
         return std::make_unique<MinGWARMTargetInfo>(Triple, Opts);
       case llvm::Triple::Itanium:
         return std::make_unique<ItaniumWindowsARMleTargetInfo>(Triple, Opts);
+
       case llvm::Triple::MSVC:
       default: // Assume MSVC for unknown environments
         return std::make_unique<MicrosoftARMleTargetInfo>(Triple, Opts);
@@ -259,6 +268,8 @@ std::unique_ptr<TargetInfo> AllocateTarget(const llvm::Triple &Triple,
       return std::make_unique<RTEMSTargetInfo<ARMbeTargetInfo>>(Triple, Opts);
     case llvm::Triple::NaCl:
       return std::make_unique<NaClTargetInfo<ARMbeTargetInfo>>(Triple, Opts);
+    case llvm::Triple::Minix:
+      return std::make_unique<MinixTargetInfo<ARMbeTargetInfo>>(Triple, Opts);
     default:
       return std::make_unique<ARMbeTargetInfo>(Triple, Opts);
     }
@@ -569,6 +580,8 @@ std::unique_ptr<TargetInfo> AllocateTarget(const llvm::Triple &Triple,
     case llvm::Triple::Solaris:
       return std::make_unique<SolarisTargetInfo<X86_32TargetInfo>>(Triple,
                                                                    Opts);
+    case llvm::Triple::Minix:
+      return std::make_unique<MinixI386TargetInfo>(Triple, Opts);
     case llvm::Triple::Win32: {
       switch (Triple.getEnvironment()) {
       case llvm::Triple::Cygnus:
@@ -632,6 +645,9 @@ std::unique_ptr<TargetInfo> AllocateTarget(const llvm::Triple &Triple,
                                                                    Opts);
     case llvm::Triple::UEFI:
       return std::make_unique<UEFIX86_64TargetInfo>(Triple, Opts);
+
+    case llvm::Triple::Minix:
+      return std::make_unique<MinixTargetInfo<X86_64TargetInfo>>(Triple, Opts);
 
     case llvm::Triple::Win32: {
       switch (Triple.getEnvironment()) {

@@ -1035,6 +1035,38 @@ public:
   }
 };
 
+// NetBSD Target
+template <typename Target>
+class LLVM_LIBRARY_VISIBILITY MinixTargetInfo : public OSTargetInfo<Target> {
+protected:
+  void getOSDefines(const LangOptions &Opts, const llvm::Triple &Triple,
+                    MacroBuilder &Builder) const override {
+    // NetBSD defines; list based off of gcc output
+    Builder.defineMacro("__minix");
+    Builder.defineMacro("__minix__");
+    Builder.defineMacro("__MINIX__");
+    Builder.defineMacro("__unix__");
+    if (Opts.POSIXThreads)
+      Builder.defineMacro("_REENTRANT");
+    if (this->HasFloat128)
+      Builder.defineMacro("__FLOAT128__");
+  }
+
+public:
+  MinixTargetInfo(const llvm::Triple &Triple, const TargetOptions &Opts)
+      : OSTargetInfo<Target>(Triple, Opts) {
+    this->MCountName = "__mcount";
+    switch (Triple.getArch()) {
+    default:
+      break;
+    case llvm::Triple::x86:
+    case llvm::Triple::x86_64:
+      this->HasFloat128 = true;
+      break;
+    }
+  }
+};
+
 } // namespace targets
 } // namespace clang
 #endif // LLVM_CLANG_LIB_BASIC_TARGETS_OSTARGETS_H

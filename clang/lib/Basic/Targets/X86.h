@@ -1083,6 +1083,15 @@ public:
     LongDoubleFormat = &llvm::APFloat::IEEEquad();
   }
 };
+
+// Minix Target
+class LLVM_LIBRARY_VISIBILITY MinixI386TargetInfo
+    : public NetBSDTargetInfo<X86_32TargetInfo> {
+public:
+  MinixI386TargetInfo(const llvm::Triple &Triple, const TargetOptions &Opts)
+      : NetBSDTargetInfo<X86_32TargetInfo>(Triple, Opts) {}
+};
+
 } // namespace targets
 } // namespace clang
 #endif // LLVM_CLANG_LIB_BASIC_TARGETS_X86_H
