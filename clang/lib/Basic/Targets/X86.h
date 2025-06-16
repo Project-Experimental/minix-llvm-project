@@ -1086,10 +1086,10 @@ public:
 
 // Minix Target
 class LLVM_LIBRARY_VISIBILITY MinixI386TargetInfo
-    : public NetBSDTargetInfo<X86_32TargetInfo> {
+    : public MinixTargetInfo<X86_32TargetInfo> {
 public:
   MinixI386TargetInfo(const llvm::Triple &Triple, const TargetOptions &Opts)
-      : NetBSDTargetInfo<X86_32TargetInfo>(Triple, Opts) {}
+      : MinixTargetInfo<X86_32TargetInfo>(Triple, Opts) {}
 };
 
 } // namespace targets
