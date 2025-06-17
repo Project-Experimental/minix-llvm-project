@@ -241,6 +241,7 @@ public:
     LiteOS,
     Serenity,
     Vulkan, // Vulkan SPIR-V
+    Minix, // Minix
     LastOSType = Vulkan
   };
   enum EnvironmentType {
