@@ -6807,6 +6807,7 @@ const ToolChain &Driver::getToolChain(const ArgList &Args,
     case llvm::Triple::OpenBSD:
       TC = std::make_unique<toolchains::OpenBSD>(*this, Target, Args);
       break;
+    case llvm::Triple::Minix:
     case llvm::Triple::NetBSD:
       TC = std::make_unique<toolchains::NetBSD>(*this, Target, Args);
       break;
